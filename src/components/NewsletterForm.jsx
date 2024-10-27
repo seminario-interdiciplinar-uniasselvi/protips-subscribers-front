@@ -1,10 +1,10 @@
 import {useState} from 'react';
 import api from '../services/api';
 import StatusModal from './StatusModal';
+import {useParams} from "react-router-dom";
 
 function NewsletterForm() {
-    const userId = '6714131d00eb823fef45b03e'
-    const newsletterId = '671551e1ee38d6778014038a'
+    const {userId, newsletterId} = useParams();
     const [email, setEmail] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -15,7 +15,7 @@ function NewsletterForm() {
         event.preventDefault();
         setIsLoading(true);
         try {
-            await api.post(`/v1/users/${userId}/newsletters/${newsletterId}/subscribe`, { email });
+            await api.post(`/v1/users/${userId}/newsletters/${newsletterId}/subscribe`, {email});
             setIsSuccess(true);
             setModalMessage('Inscrição realizada com sucesso!');
         } catch (error) {
@@ -28,7 +28,8 @@ function NewsletterForm() {
     };
 
     return (
-        <div>
+        <div className="App">
+            <h1>Inscreva-se na nossa Newsletter</h1>
             <form onSubmit={handleSubmit}>
                 <label>
                     Email:

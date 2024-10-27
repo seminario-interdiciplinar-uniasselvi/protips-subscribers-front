@@ -1,12 +1,14 @@
 import './App.css';
 import NewsletterForm from './components/NewsletterForm';
+import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
 
 function App() {
     return (
-        <div className="App">
-            <h1>Inscreva-se na nossa Newsletter</h1>
-            <NewsletterForm />
-        </div>
+        <Router>
+            <Routes>
+                <Route path="/:userId/:newsletterId" element={<NewsletterForm/>}/>
+            </Routes>
+        </Router>
     );
 }
 
