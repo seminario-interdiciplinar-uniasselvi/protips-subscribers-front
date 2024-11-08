@@ -13,9 +13,9 @@ function StatusModal({ isOpen, onRequestClose, message, isSuccess }) {
             overlayClassName="status-modal-overlay"
         >
             <div className={`status-modal-content ${isSuccess ? 'success' : 'error'}`}>
-                <h2>{isSuccess ? 'Success' : 'Error'}</h2>
+                <h2>{isSuccess ? 'Sucesso' : 'Erro'}</h2>
                 <p>{message}</p>
-                <button onClick={onRequestClose}>Close</button>
+                <button onClick={onRequestClose}>Fechar</button>
             </div>
         </Modal>
     );
