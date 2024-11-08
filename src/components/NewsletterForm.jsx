@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import api from '../services/api';
-import StatusModal from './StatusModal';
 import {useParams} from "react-router-dom";
+import StatusModal from "./StatusModal.jsx";
 
 function NewsletterForm() {
     const {userId, newsletterId} = useParams();
@@ -11,8 +11,8 @@ function NewsletterForm() {
     const [modalMessage, setModalMessage] = useState('');
     const [isSuccess, setIsSuccess] = useState(false);
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         setIsLoading(true);
         try {
             await api.post(`/v1/users/${userId}/newsletters/${newsletterId}/subscribe`, {email});
@@ -28,21 +28,20 @@ function NewsletterForm() {
     };
 
     return (
-        <div className="App">
-            <h1>Inscreva-se na nossa Newsletter</h1>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Email:
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </label>
-                <button type="submit" disabled={isLoading}>
-                    {isLoading ? 'Enviando...' : 'Inscrever-se'}
-                </button>
+        <main>
+            <form className="container" onSubmit={handleSubmit}>
+                <h1>Inscreva-se na nossa Newsletter</h1>
+                <p>Ao se inscrever na nossa newsletter, você receberá atualizações semanais com as últimas
+                    novidades, promoções exclusivas e conteúdos feitos especialmente para nossos assinantes. </p>
+                <input
+                    type="email"
+                    id="email"
+                    value={email}
+                    placeholder="Digite seu e-mail"
+                    required
+                    onChange={(event) => setEmail(event.target.value)}
+                />
+                <button type="submit" disabled={isLoading}>Inscrever-se</button>
             </form>
             <StatusModal
                 isOpen={modalIsOpen}
@@ -50,7 +49,7 @@ function NewsletterForm() {
                 message={modalMessage}
                 isSuccess={isSuccess}
             />
-        </div>
+        </main>
     );
 }
 
